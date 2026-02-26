@@ -1,4 +1,4 @@
-import StatsCard from "../dashboard/kpi-card";
+import StatsCard from "../dashboard/dashBoardKpi-Card";
 import { DashboardChart } from "../dashboard/LinkStatchart";
 import LinkTable from "../dashboard/links/link";
 import { AddLinkDialog } from "../dashboard/links/adddialog";
@@ -10,7 +10,8 @@ export default function Dashboard() {
   const [perHourClicks, setPerHourClicks] = useState<any[]>([]);
   const [apiRequest, setApiRequest] = useState<any[]>([]);
   const [tableData, setTableData] = useState<any[]>([]);
-  const [lastWeekClicks, setLastWeekClicks] = useState();
+  const [lastWeekClicks, setLastWeekClicks] = useState<any[]>([]);
+  const [linkLastWeekClicks, setLinkLastWeekClicks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

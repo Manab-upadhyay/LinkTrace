@@ -7,11 +7,20 @@ interface KpiCardProps {
   value: string | number;
   icon: LucideIcon;
   trend?: string;
+  trendColor?: "green" | "red" | "muted";
 }
 
-export function KpiCard({ title, value, icon: Icon, trend }: KpiCardProps) {
-  const isPositive = trend?.startsWith("+") || trend?.startsWith("↑");
-  const isNegative = trend?.startsWith("-") || trend?.startsWith("↓");
+export function KpiCard({
+  title,
+  value,
+  icon: Icon,
+  trend,
+  trendColor,
+}: KpiCardProps) {
+  const isPositive =
+    trendColor === "green" || trend?.startsWith("+") || trend?.startsWith("↑");
+  const isNegative =
+    trendColor === "red" || trend?.startsWith("-") || trend?.startsWith("↓");
 
   return (
     <Card className="group relative overflow-hidden border-border/50 bg-card shadow-sm transition-all duration-300 hover:shadow-md hover:border-border">

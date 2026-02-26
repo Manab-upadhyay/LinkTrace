@@ -1,7 +1,11 @@
 import { KpiCard } from "./per-link-stats";
 import { MousePointerClick, Globe, Smartphone, Activity } from "lucide-react";
 
-export default function PerLinkStatsCard({ data = [], loading }: any) {
+export default function PerLinkStatsCard({
+  data = [],
+  loading,
+  lastWeekClicks,
+}: any) {
   if (loading) {
     return <div className="p-6">Loading...</div>;
   }
@@ -51,6 +55,8 @@ export default function PerLinkStatsCard({ data = [], loading }: any) {
         title="Total Clicks"
         value={totalClicks}
         icon={MousePointerClick}
+        trend={`${lastWeekClicks.data.percentage}% from last 7 days`}
+        trendColor={lastWeekClicks.data.isPositive ? "green" : "red"}
       />
 
       <KpiCard title="Clicks Today" value={clicksToday} icon={Activity} />

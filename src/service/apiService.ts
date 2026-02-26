@@ -26,7 +26,9 @@ export const apiService = {
   getUserAnalytics: () => safeRequest(apiClient.get("/analytics/user")), //get user specific analytics like total links, total clicks
 
   getLastWeekClicks: () =>
-    safeRequest(apiClient.get("/analytics/last-week-clicks")), //get clicks for last 7 days for dashboard chart
+    safeRequest(apiClient.get("/analytics/weekly-trend")), //get clicks for last 7 days for dashboard chart
+  getLastWeekClicksPerLink: (linkId: string) =>
+    safeRequest(apiClient.get(`/analytics/weekly-trend/${linkId}`)), //get clicks for last 7 days for specific link for per link analysis
   getUserLinks: () => safeRequest(apiClient.get("/links/getUserLinks")), //get all links for user for dashboard table
   getDashboardPerHourClicks: () =>
     safeRequest(apiClient.get("/analytics/hourly-clicks")), //get clicks per hour for last 24 hours for dashboard chart & also to calculate total clicks today
