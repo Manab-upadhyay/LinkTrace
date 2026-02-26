@@ -44,7 +44,10 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/usage" element={<UsagePage />} />
             <Route path="/api-keys" element={<ApiKeysPage />} />
-            <Route path="/per-link-analysis" element={<PerLinkAnalysis />} />
+            <Route
+              path="/per-link-analysis/:linkId"
+              element={<PerLinkAnalysis />}
+            />
           </Route>
         </Route>
 

@@ -17,7 +17,20 @@ export const apiService = {
   signup: (email: string, password: string, name: string) =>
     safeRequest(apiClient.post("/auth/signup", { email, password, name })),
 
-  getDashboardStats: () => safeRequest(apiClient.get("/dashboard/stats")),
+  getLinkAnalytics: (linkId: string) =>
+    safeRequest(apiClient.get(`/analytics/link/${linkId}`)),
+  //get analytics for a specific link
+  getLinkAnalyticsHourly: (linkId: string) =>
+    safeRequest(apiClient.get(`/analytics/link/${linkId}/hourly`)),
 
-  getDashboardClicks: () => safeRequest(apiClient.get("/dashboard/clicks")),
+  getUserAnalytics: () => safeRequest(apiClient.get("/analytics/user")), //get user specific analytics like total links, total clicks
+
+  getLastWeekClicks: () =>
+    safeRequest(apiClient.get("/analytics/last-week-clicks")), //get clicks for last 7 days for dashboard chart
+  getUserLinks: () => safeRequest(apiClient.get("/links/getUserLinks")), //get all links for user for dashboard table
+  getDashboardPerHourClicks: () =>
+    safeRequest(apiClient.get("/analytics/hourly-clicks")), //get clicks per hour for last 24 hours for dashboard chart & also to calculate total clicks today
+
+  getDashboardApiRequest: () =>
+    safeRequest(apiClient.get("/analytics/apiUsage")),
 };

@@ -10,7 +10,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function DashboardChart({ data }: any) {
+export function ChartPerLink({ data }: any) {
   console.log("Chart Data:", data);
   return (
     <ChartContainer config={chartConfig} className="min-h-[250px] w-full">
