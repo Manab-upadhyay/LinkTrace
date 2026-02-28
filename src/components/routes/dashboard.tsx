@@ -7,9 +7,10 @@ import { apiService } from "@/service/apiService";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ConfirmDialog } from "../layout/DialogBox";
 import { useState } from "react";
-import { AlertDialogTrigger } from "../ui/alert-dialog";
+import useAuthStore from "@/store/store";
 
 export default function Dashboard() {
+  const {user} = useAuthStore()
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [linkToDelete, setLinkToDelete] = useState<string | null>(null);
   const queryClient = useQueryClient();
@@ -60,7 +61,15 @@ export default function Dashboard() {
     return <div className="p-6">Loading...</div>;
   }
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-8 flex flex-col">
+      <div className="mb-2">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          Welcome back, {user?.name || "User"}! 👋
+        </h1>
+        <p className="text-muted-foreground mt-1">
+          Here's what's happening with your links today.
+        </p>
+      </div>
       <StatsCard
         userAnalytics={data?.userAnalytics}
         perHourClicks={data?.perHourClicks}

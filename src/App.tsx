@@ -11,6 +11,7 @@ import ApiKeysPage from "./components/routes/api-key";
 import UsagePage from "./components/routes/usages";
 import { AppSidebar } from "./components/layout/SideBar";
 import { SidebarProvider } from "./components/ui/sidebar";
+import UserProfile from "./components/user/userProfile";
 import PerLinkAnalysis from "./components/routes/perLinkAnalysis";
 import { Outlet } from "react-router-dom";
 
@@ -48,6 +49,7 @@ function App() {
               path="/per-link-analysis/:linkId"
               element={<PerLinkAnalysis />}
             />
+            <Route path="/profile" element={<UserProfile />} />
           </Route>
         </Route>
 
