@@ -1,34 +1,41 @@
 "use client";
 
 import { ChartContainer, type ChartConfig } from "@/components/ui/chart";
-import { Bar, BarChart } from "recharts";
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+import { Bar, BarChart, XAxis, CartesianGrid, Tooltip } from "recharts";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  totalRequests: {
+    label: "Total Requests",
     color: "#2563eb",
   },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
+  errorCount: {
+    label: "Errors",
+    color: "#ef4444",
   },
 } satisfies ChartConfig;
 
-export function ApiUsageChart() {
+export function ApiUsageChart({ data }: any) {
+  const normalizedData =
+    data?.map((item: any) => ({
+      hour: `${item.hour}:00`,
+      totalRequests: item.totalRequests,
+      errorCount: item.errorCount,
+    })) ?? [];
+
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-      <BarChart accessibilityLayer data={chartData}>
-        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-        <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+      <BarChart data={normalizedData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="hour" />
+        <Tooltip />
+
+        <Bar
+          dataKey="totalRequests"
+          fill="var(--color-totalRequests)"
+          radius={4}
+        />
+
+        <Bar dataKey="errorCount" fill="var(--color-errorCount)" radius={4} />
       </BarChart>
     </ChartContainer>
   );

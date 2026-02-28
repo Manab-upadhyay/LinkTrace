@@ -12,18 +12,36 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Plus, Key } from "lucide-react";
 import { useState } from "react";
 
-export function GenerateKeyDialog() {
+export function GenerateKeyDialog({
+  generateApiKey,
+}: {
+  generateApiKey: (
+    name: string,
+  ) => Promise<{ keyHash: string; prefix: string }>;
+}) {
   const [keyName, setKeyName] = useState("");
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   const handleGenerate = async () => {
-    // Call your backend here
-    const fakeKey = "lt_live_92ks82hs8sks82ks";
-    setGeneratedKey(fakeKey);
+    if (!keyName.trim()) return;
+
+    try {
+      const key = await generateApiKey(keyName);
+      setGeneratedKey(key.fullKey);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDone = () => {
+    setOpen(false);
+    setKeyName("");
+    setGeneratedKey(null);
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus className="w-4 h-4 mr-2" />
@@ -59,7 +77,9 @@ export function GenerateKeyDialog() {
 
             <Input value={generatedKey} readOnly />
 
-            <Button className="w-full">Done</Button>
+            <Button className="w-full" onClick={handleDone}>
+              Done
+            </Button>
           </div>
         )}
       </DialogContent>

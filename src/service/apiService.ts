@@ -24,7 +24,9 @@ export const apiService = {
     safeRequest(apiClient.get(`/analytics/link/${linkId}/hourly`)),
 
   getUserAnalytics: () => safeRequest(apiClient.get("/analytics/user")), //get user specific analytics like total links, total clicks
-
+  getDashboard: () => safeRequest(apiClient.get("/dashboard")), //get all dashboard analytics in one call
+  getDashboardPerLinkAnalytics: (linkId: string) =>
+    safeRequest(apiClient.get(`/analytics/dashboard/${linkId}`)), //get all analytics for specific link in one call for per link analysis page
   getLastWeekClicks: () =>
     safeRequest(apiClient.get("/analytics/weekly-trend")), //get clicks for last 7 days for dashboard chart
   getLastWeekClicksPerLink: (linkId: string) =>
@@ -35,4 +37,14 @@ export const apiService = {
 
   getDashboardApiRequest: () =>
     safeRequest(apiClient.get("/analytics/apiUsage")),
+  addUrl: (name: string, url: string) =>
+    safeRequest(apiClient.post("/links/addLink", { name, url })),
+  getUsage: () => safeRequest(apiClient.get("/usage/current")), //get api usage data for usage page
+  deleteLink: (linkId: string) =>
+    safeRequest(apiClient.delete(`/links/deleteLink/${linkId}`)),
+  generateApiKey: (name: string) =>
+    safeRequest(apiClient.post("/api-keys/dashboard/api-key", { name })),
+  getApiKeys: () => safeRequest(apiClient.get("/api-keys/dashboard/api-keys")),
+  deleteApiKey: (keyId: string) =>
+    safeRequest(apiClient.delete(`/api-keys/dashboard/deleteApiKey/${keyId}`)),
 };

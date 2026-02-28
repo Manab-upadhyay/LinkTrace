@@ -15,17 +15,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Delete } from "lucide-react";
+import { AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 import { useNavigate } from "react-router-dom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  handleDeleteLink: (id: string) => void;
 }
 
-export function DataTable<TData extends Record<string, any>, TValue>({
+export function DataTable<TData extends { id?: string; _id?: string }, TValue>({
   columns,
   data,
+  handleDeleteLink,
 }: DataTableProps<TData, TValue>) {
   const navigate = useNavigate();
 
@@ -51,33 +55,54 @@ export function DataTable<TData extends Record<string, any>, TValue>({
                       )}
                 </TableHead>
               ))}
+              <TableHead>Delete</TableHead>
             </TableRow>
           ))}
         </TableHeader>
 
         <TableBody>
           {table.getRowModel().rows.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() => {
-                  const id = row.original?._id;
-                  if (id) {
-                    navigate(`/per-link-analysis/${id}`);
-                  }
-                }}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            table.getRowModel().rows.map((row) => {
+              const id = row.original?.id || row.original?._id;
+              return (
+                <TableRow
+                  key={row.id}
+                  className="cursor-pointer hover:bg-muted/50 transition-colors"
+                  onClick={() => {
+                    const linkId = row.original?._id;
+                    if (linkId) {
+                      navigate(`/per-link-analysis/${linkId}`);
+                    }
+                  }}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                  <TableCell>
+                    <button
+                      className="text-red-500 hover:underline"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (id) handleDeleteLink(id);
+                      }}
+                    >
+                      Delete
+                    </button>
                   </TableCell>
-                ))}
-              </TableRow>
-            ))
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell
+                colSpan={columns.length + 1}
+                className="h-24 text-center"
+              >
                 No results.
               </TableCell>
             </TableRow>

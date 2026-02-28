@@ -1,14 +1,22 @@
 import { KpiCard } from "./per-link-stats";
 import { MousePointerClick, Globe, Smartphone, Activity } from "lucide-react";
+import { type PerLinkResponse } from "@/types/analytics";
 
+interface PerLinkStatsCardProps {
+  data?: PerLinkResponse;
+
+  lastWeekClicks?: {
+    data?: {
+      percentage: number;
+      isPositive: boolean;
+    };
+  };
+}
 export default function PerLinkStatsCard({
-  data = [],
-  loading,
+  data = { LinkDetails: [] },
+
   lastWeekClicks,
-}: any) {
-  if (loading) {
-    return <div className="p-6">Loading...</div>;
-  }
+}: PerLinkStatsCardProps) {
   console.log("Per Link Data:", data);
 
   //  1. Total Clicks
@@ -55,8 +63,8 @@ export default function PerLinkStatsCard({
         title="Total Clicks"
         value={totalClicks}
         icon={MousePointerClick}
-        trend={`${lastWeekClicks.data.percentage}% from last 7 days`}
-        trendColor={lastWeekClicks.data.isPositive ? "green" : "red"}
+        trend={`${lastWeekClicks?.percentage || 0}% from last 7 days`}
+        trendColor={lastWeekClicks?.isPositive ? "green" : "red"}
       />
 
       <KpiCard title="Clicks Today" value={clicksToday} icon={Activity} />

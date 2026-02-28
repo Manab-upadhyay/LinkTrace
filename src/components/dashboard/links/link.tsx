@@ -11,14 +11,19 @@ interface Link {
 }
 interface LinkTableProps {
   data: Link[];
+  handleDeleteLink: (id: string) => void;
 }
-export default function LinkTable({ data }: LinkTableProps) {
+export default function LinkTable({ data, handleDeleteLink }: LinkTableProps) {
   console.log("Link Table Data:", data);
   if (!data || data.length === 0) return <div>No links available.</div>;
 
   return (
     <div className="container mx-auto py-6">
-      <DataTable columns={columns} data={data} />
+      <DataTable
+        columns={columns}
+        data={data}
+        handleDeleteLink={handleDeleteLink}
+      />
     </div>
   );
 }

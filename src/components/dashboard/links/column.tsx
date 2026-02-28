@@ -1,4 +1,5 @@
 import { type ColumnDef } from "@tanstack/react-table";
+import { Delete } from "lucide-react";
 
 export const columns: ColumnDef<any>[] = [
   {
@@ -14,8 +15,6 @@ export const columns: ColumnDef<any>[] = [
       const shortUrl = `http://localhost:5000/${row.original.shortCode}`;
       const fullUrl = `${BASE_URL}/${row.original.shortCode}`;
 
-      // Use the full URL for the link
-      // Use the short URL for display
       return (
         <a
           href={shortUrl}

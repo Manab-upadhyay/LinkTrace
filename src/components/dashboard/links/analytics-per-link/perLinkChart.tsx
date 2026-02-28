@@ -14,7 +14,7 @@ export function ChartPerLink({ data }: any) {
   console.log("Chart Data:", data);
   return (
     <ChartContainer config={chartConfig} className="min-h-[250px] w-full">
-      <LineChart data={data.data}>
+      <LineChart data={data}>
         <CartesianGrid vertical={false} strokeDasharray="3 3" />
         <XAxis dataKey="hour" />
         <Tooltip />

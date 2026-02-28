@@ -18,8 +18,17 @@ const dummyKeys = [
     status: "Active",
   },
 ];
-
-export function ApiKeysTable() {
+interface ApiKeysTableProps {
+  data: {
+    _id: string;
+    name: string;
+    prefix: string;
+    createdAt: string;
+    isActive: boolean;
+  }[];
+  handdleRevokeApiKey: (keyId: string) => void;
+}
+export function ApiKeysTable({ data, handdleRevokeApiKey }: ApiKeysTableProps) {
   return (
     <div className="border rounded-lg">
       <Table>
@@ -34,14 +43,18 @@ export function ApiKeysTable() {
         </TableHeader>
 
         <TableBody>
-          {dummyKeys.map((key) => (
-            <TableRow key={key.id}>
+          {data.map((key) => (
+            <TableRow key={key._id}>
               <TableCell>{key.name}</TableCell>
               <TableCell className="font-mono text-sm">{key.prefix}</TableCell>
               <TableCell>{key.createdAt}</TableCell>
-              <TableCell>{key.status}</TableCell>
+              <TableCell>{key.isActive ? "Active" : "Inactive"}</TableCell>
               <TableCell className="text-right">
-                <Button variant="destructive" size="sm">
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => handdleRevokeApiKey(key._id)}
+                >
                   Revoke
                 </Button>
               </TableCell>

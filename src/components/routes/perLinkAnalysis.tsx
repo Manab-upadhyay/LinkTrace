@@ -1,49 +1,31 @@
-import PerLinkStatsCard from "../dashboard/links/analytics-per-link/PerLinkStats_kpi-card";
+import PerLinkStatsCard from "../dashboard/links/analytics-per-link/perLinkStats_kpi-card";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { apiService } from "@/service/apiService";
 import { ChartPerLink } from "../dashboard/links/analytics-per-link/perLinkChart";
+import { useQuery } from "@tanstack/react-query";
 
 export default function PerLinkAnalysis() {
   const { linkId } = useParams<{ linkId: string }>();
-  const [data, setData] = useState<any[]>([]);
-  const [chartData, setChartData] = useState<any[]>([]);
-  const [linkLastWeekClicks, setLinkLastWeekClicks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  console.log("Link ID from URL:", linkId);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-
-      const [analyticsRes, hourlyRes, weeklyRes] = await Promise.all([
-        apiService.getLinkAnalytics(linkId),
-        apiService.getLinkAnalyticsHourly(linkId),
-        apiService.getLastWeekClicksPerLink(linkId),
-      ]);
-      console.log("Analytics Response:", analyticsRes);
-      console.log("Hourly Analytics Response:", hourlyRes);
-      console.log("Last Week Clicks Per Link Response:", weeklyRes);
-      if (weeklyRes.data) setLinkLastWeekClicks(weeklyRes.data);
-      if (analyticsRes.data) setData(analyticsRes.data);
-      if (hourlyRes.data) setChartData(hourlyRes.data);
-      if (weeklyRes.data) setLinkLastWeekClicks(weeklyRes.data);
-
-      setLoading(false);
-    }
-
-    fetchData();
-  }, [linkId]);
+  const { data, isLoading } = useQuery({
+    queryKey: ["perLinkAnalytics", linkId],
+    queryFn: () =>
+      apiService.getDashboardPerLinkAnalytics(linkId!).then((res) => res.data),
+    enabled: !!linkId, // Only run the query if linkId is available
+  });
+  console.log("perlink:", data);
+  if (isLoading) {
+    return <div className="p-6">Loading...</div>;
+  }
   return (
     <div className="p-6 space-y-8">
       {/* KPI Section */}
       <PerLinkStatsCard
-        data={data}
-        loading={loading}
-        lastWeekClicks={linkLastWeekClicks}
+        data={data.summary}
+        lastWeekClicks={data?.weeklyTrend}
       />
       {/* Charts Section */}
-      <ChartPerLink data={chartData} />
+      <ChartPerLink data={data?.hourly} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { KpiCard } from "./dashboardCards";
 import { Link, MousePointerClick, BarChart3, Activity } from "lucide-react";
-import { calculateTrend } from "../utils/calculateTrend";
 
 export default function StatsCard({
   userAnalytics,
@@ -13,11 +12,11 @@ export default function StatsCard({
   console.log("API Request:", apiRequest);
   console.log("Last Week Clicks:", lastWeekClicks);
 
-  const clicksToday = perHourClicks.data.reduce(
+  const clicksToday = perHourClicks.reduce(
     (total: number, hourData: any) => total + hourData.total,
     0,
   );
-  const totalApiRequests = apiRequest.usage.reduce(
+  const totalApiRequests = apiRequest.reduce(
     (total: number, data: any) => total + data.totalRequests,
     0,
   );
@@ -33,8 +32,8 @@ export default function StatsCard({
         title="Total Clicks"
         value={userAnalytics?.totalClicks || 0}
         icon={MousePointerClick}
-        trend={`${lastWeekClicks.data.percentage}% from last 7 days`}
-        trendColor={lastWeekClicks.data.isPositive ? "green" : "red"}
+        trend={`${lastWeekClicks.percentage}% from last 7 days`}
+        trendColor={lastWeekClicks.isPositive ? "green" : "red"}
       />
 
       <KpiCard title="Clicks Today" value={clicksToday} icon={Activity} />
