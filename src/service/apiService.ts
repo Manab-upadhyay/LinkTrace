@@ -47,4 +47,19 @@ export const apiService = {
   getApiKeys: () => safeRequest(apiClient.get("/api-keys/dashboard/api-keys")),
   deleteApiKey: (keyId: string) =>
     safeRequest(apiClient.delete(`/api-keys/dashboard/deleteApiKey/${keyId}`)),
+  updateUser : (name: string,  bio: string, preferences: { email: boolean; notifications: boolean; }) =>
+    safeRequest(apiClient.put("/user/updateUser", { name, bio, preferences })),
+  updateUserPassword : ( newPassword: string, email: string) =>
+    safeRequest(apiClient.put("/auth/updatePassword", { newPassword, email })),
+  uploadUserProfileImage:(image:File)=>{
+    console.log(image)
+    const formData = new FormData();
+    formData.append("image", image);
+    console.log(formData)
+    return safeRequest(apiClient.post("/media/upload-image", formData,{
+      headers: {
+    "Content-Type": "multipart/form-data",
+  },
+    }));
+  }
 };

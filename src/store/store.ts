@@ -8,10 +8,17 @@ interface AuthState {
     id: string;
     name: string;
     email: string;
+    bio: string;
+    preferences: {
+      email: boolean;
+      notifications: boolean;
+    };
+    image: string
   } | null;
 
-  setAuth: (user: { id: string; name: string; email: string }) => void;
+  setAuth: (user: { id: string; name: string; email: string; bio: string; preferences: { email: boolean; notifications: boolean }, image: string }) => void;
   clearAuth: () => void;
+  updateUser: (data: Partial<{ name: string; bio: string; preferences: { email: boolean; notifications: boolean }; image: string }>) => void;
 }
 
 const useAuthStore = create<AuthState>()(
@@ -31,6 +38,11 @@ const useAuthStore = create<AuthState>()(
           isAuthenticated: false,
           user: null,
         }),
+
+      updateUser: (data) =>
+        set((state) => ({
+          user: state.user ? { ...state.user, ...data } : null,
+        })),
     }),
     {
       name: "auth-storage",

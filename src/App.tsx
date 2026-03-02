@@ -13,6 +13,7 @@ import { AppSidebar } from "./components/layout/SideBar";
 import { SidebarProvider } from "./components/ui/sidebar";
 import UserProfile from "./components/user/userProfile";
 import PerLinkAnalysis from "./components/routes/perLinkAnalysis";
+import SetNewPassword from "./components/routes/SetNewPassword";
 import { Outlet } from "react-router-dom";
 
 function ProtectedRoute() {
@@ -55,6 +56,7 @@ function App() {
 
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
+        <Route path="/set-new-password" element={<SetNewPassword />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>

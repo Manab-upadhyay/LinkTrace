@@ -7,6 +7,7 @@ import { apiService } from "@/service/apiService";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { ConfirmDialog } from "../layout/DialogBox";
 import { useState } from "react";
+import DashboardSkeleton from "../skeleton/DashboardSkeleton";
 import useAuthStore from "@/store/store";
 
 export default function Dashboard() {
@@ -58,7 +59,7 @@ export default function Dashboard() {
 
   console.log("Dashboard Data:", data);
   if (isLoading) {
-    return <div className="p-6">Loading...</div>;
+    return <DashboardSkeleton />;
   }
   return (
     <div className="p-6 space-y-8 flex flex-col">

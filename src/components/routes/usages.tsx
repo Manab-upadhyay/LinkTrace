@@ -11,11 +11,12 @@ export default function UsagePage() {
   if (isLoading) {
     return <div className="p-6">Loading...</div>;
   }
+  console.log(data)
   return (
     <>
       <div className="space-y-8">
         <LinksUsageCard
-          used={data.usage.linksCreated}
+          used={data.usage?.linksCreated}
           limit={100}
         ></LinksUsageCard>
         <ApiUsageCard used={data.usage.apiRequests} limit={500}></ApiUsageCard>
