@@ -3,15 +3,16 @@ import { LinksUsageCard } from "../usage/link-usage-card";
 import { ApiUsageCard } from "../usage/api-usage-card";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "@/service/axiosClient";
+import UsageSkeleton from "../skeleton/UsageSkeleton";
 export default function UsagePage() {
   const { data, isLoading } = useQuery({
     queryKey: ["usageData"],
     queryFn: () => apiClient.get("/usage/current").then((res) => res.data),
   });
   if (isLoading) {
-    return <div className="p-6">Loading...</div>;
+    return <UsageSkeleton></UsageSkeleton>
   }
-  console.log(data)
+
   return (
     <>
       <div className="space-y-8">

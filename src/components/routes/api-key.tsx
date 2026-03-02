@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { apiService } from "@/service/apiService";
 import { ConfirmDialog } from "../layout/DialogBox";
 import { useState } from "react";
+import TableSkeleton from "../skeleton/TableSkeleton";
 
 export default function ApiKeysPage() {
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -53,7 +54,7 @@ export default function ApiKeysPage() {
   }
 
   if (isLoading) {
-    return <div className="p-6">Loading...</div>;
+    return <TableSkeleton/>
   }
   return (
     <div className="p-6 space-y-8">

@@ -18,7 +18,7 @@ interface AuthState {
 
   setAuth: (user: { id: string; name: string; email: string; bio: string; preferences: { email: boolean; notifications: boolean }, image: string }) => void;
   clearAuth: () => void;
-  updateUser: (data: Partial<{ name: string; bio: string; preferences: { email: boolean; notifications: boolean }; image: string }>) => void;
+  updateUser: (data: Partial<{ name: string; bio: string; preferences: { email: boolean; notifications: boolean },image: string }>) => void;
 }
 
 const useAuthStore = create<AuthState>()(
