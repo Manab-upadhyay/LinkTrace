@@ -18,6 +18,7 @@ export function AddLinkDialog({ handleSubmit }: any) {
   const [formData, setFormData] = useState({
     name: "",
     url: "",
+    customAlias: "",
   });
   return (
     <Dialog>
@@ -56,6 +57,18 @@ export function AddLinkDialog({ handleSubmit }: any) {
                 }
               />
             </Field>
+             <Field>
+              <Label htmlFor="customAlias-1">Custom Alias</Label>
+              <p className="text-xs text-muted-foreground">If you don't provide a custom alias, one will be generated for you.</p>
+              <Input
+                id="customAlias-1"
+                name="customAlias"
+                value={formData.customAlias}
+                onChange={(e) =>
+                  setFormData({ ...formData, customAlias: e.target.value })
+                }
+              />
+            </Field>
           </FieldGroup>
           <DialogFooter>
             <DialogClose asChild>
@@ -64,7 +77,7 @@ export function AddLinkDialog({ handleSubmit }: any) {
             <DialogClose asChild>
               <Button
                 type="submit"
-                onClick={() => handleSubmit(formData.name, formData.url)}
+                onClick={() => handleSubmit(formData.name, formData.url, formData.customAlias)}
               >
                 Save changes
               </Button>

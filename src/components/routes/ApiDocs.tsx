@@ -155,7 +155,7 @@ function EndpointCard({ method, path, title, description, params, requestBody, r
 
 export default function ApiDocs() {
   return (
-    <div className="container mx-auto max-w-4xl p-4 space-y-8 animate-in fade-in duration-500">
+    <div className="container  p-4 space-y-8 animate-in fade-in duration-500">
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">API Documentation</h1>

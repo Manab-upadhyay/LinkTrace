@@ -37,8 +37,8 @@ export const apiService = {
 
   getDashboardApiRequest: () =>
     safeRequest(apiClient.get("/analytics/apiUsage")),
-  addUrl: (name: string, url: string) =>
-    safeRequest(apiClient.post("/links/addLink", { name, url })),
+  addUrl: (name: string, url: string, customAlias: string) =>
+    safeRequest(apiClient.post("/links/addLink", { name, url, customAlias })),
   getUsage: () => safeRequest(apiClient.get("/usage/current")), //get api usage data for usage page
   deleteLink: (linkId: string) =>
     safeRequest(apiClient.delete(`/links/deleteLink/${linkId}`)),

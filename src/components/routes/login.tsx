@@ -20,6 +20,7 @@ export function Login() {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   function validateForm() {
@@ -31,7 +32,7 @@ export function Login() {
   }
   async function handdleLogin(email: string, password: string) {
     if (!validateForm()) return;
-
+setLoading(true)
     setError("");
     const result = await apiService.login(email, password);
     if (result.error) {
@@ -40,8 +41,10 @@ export function Login() {
     } else if (result.data) {
       console.log("Login successful, user data:", result.data.user);
       useAuthStore.getState().setAuth(result.data.user);
+      
       navigate("/", { replace: true });
     }
+    setLoading(false)
   }
 
   return (
@@ -109,6 +112,7 @@ export function Login() {
             type="submit"
             className="w-full"
             onClick={() => handdleLogin(formData.email, formData.password)}
+            disabled={!formData.email || !formData.password}
           >
             Login
           </Button>
