@@ -61,5 +61,8 @@ export const apiService = {
     "Content-Type": "multipart/form-data",
   },
     }));
-  }
+  },
+
+  verifyOtp: (email: string, otp: string) =>
+    safeRequest(apiClient.post("/auth/verify-signup", { email, otp })),
 };

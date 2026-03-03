@@ -25,6 +25,7 @@ export function SignUp() {
   });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   function validateForm() {
     if (!formData.email || !formData.password || !formData.name) {
       alert("Please fill in all required fields.");
@@ -39,14 +40,15 @@ export function SignUp() {
   async function handleSignIn(email: string, password: string, name: string) {
     if (!validateForm()) return;
 
+    setLoading(true)
     const result = await apiService.signup(email, password, name);
     if (result.error) {
       console.error("Signup error:", result.error);
       setError(result.error);
     } else if (result.data) {
-      console.log("Signup successful, user data:", result.data.user);
-      useAuthStore.getState().setAuth(result.data.user);
-      navigate("/", { replace: true });
+      setLoading(false)
+  
+      navigate("/input-otp", { state: { email: formData.email } });
     }
   }
   return (
@@ -141,6 +143,7 @@ export function SignUp() {
             onClick={() =>
               handleSignIn(formData.email, formData.password, formData.name)
             }
+            disabled={loading}
           >
             Sign Up
           </Button>

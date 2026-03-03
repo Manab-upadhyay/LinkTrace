@@ -9,15 +9,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-const dummyKeys = [
-  {
-    id: "1",
-    name: "Production",
-    prefix: "lt_live_x82ks...",
-    createdAt: "2026-02-01",
-    status: "Active",
-  },
-];
 interface ApiKeysTableProps {
   data: {
     _id: string;
@@ -29,6 +20,20 @@ interface ApiKeysTableProps {
   handdleRevokeApiKey: (keyId: string) => void;
 }
 export function ApiKeysTable({ data, handdleRevokeApiKey }: ApiKeysTableProps) {
+
+  if (!data || data.length === 0) {
+    return (
+      <div className="flex min-h-[200px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center animate-in fade-in-50">
+        <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
+          <h3 className="mt-4 text-lg font-semibold">No API keys found</h3>
+          <p className="mb-4 mt-2 text-sm text-muted-foreground text-balance">
+            You haven&apos;t created any API keys yet. Create your first key to start authenticating your requests.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="border rounded-lg">
       <Table>
