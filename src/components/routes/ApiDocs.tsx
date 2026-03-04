@@ -179,7 +179,7 @@ export default function ApiDocs() {
         <CardContent className="space-y-4">
           <CodeBlock
             code={`// Include in every request header
-X-API-Key: your_api_key_here`}
+Authorization: Bearer YOUR_API_KEY`}
           />
           <p className="text-sm text-muted-foreground">
             You can generate API keys from the{" "}
@@ -257,6 +257,11 @@ X-API-Key: your_api_key_here`}
               <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/addLinks</code>
               <span className="text-sm text-muted-foreground ml-auto hidden sm:inline">Create a short link</span>
             </a>
+            <a href="#get--getmylinks" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors group">
+              <MethodBadge method="GET" />
+              <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/getMyLinks</code>
+              <span className="text-sm text-muted-foreground ml-auto hidden sm:inline">Get all your links</span>
+            </a>
             <a href="#get--links-shortcode" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors group">
               <MethodBadge method="GET" />
               <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/links/:shortCode</code>
@@ -280,30 +285,79 @@ X-API-Key: your_api_key_here`}
         params={[
           { name: "name", type: "string", required: true, description: "A descriptive name for the link (for your reference)" },
           { name: "url", type: "string", required: true, description: "The original URL to shorten. Must be a valid URL." },
+          { name: "customAlias", type: "string", required: false, description: "A custom alias for the short link (e.g. \"devFolio\"). Must be unique. If not provided, a random short code will be generated." },
         ]}
         requestBody={`{
   "name": "My Portfolio",
-  "url": "https://example.com/my-very-long-url-that-needs-shortening"
+  "url": "https://example.com/my-very-long-url-that-needs-shortening",
+  "customAlias": "devFolio"   // optional
 }`}
         curlExample={`curl -X POST ${BASE_URL}/addLinks \\
   -H "Content-Type: application/json" \\
-  -H "X-API-Key: your_api_key_here" \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
   -d '{
     "name": "My Portfolio",
-    "url": "https://example.com/my-very-long-url"
+    "url": "https://example.com/my-very-long-url",
+    "customAlias": "devFolio"
   }'`}
-        responseExample={`{
+        responseExample={`// With customAlias provided:
+{
   "success": true,
   "data": {
     "id": "664f1a2b3c4d5e6f7a8b9c0d",
     "name": "My Portfolio",
     "url": "https://example.com/my-very-long-url",
-    "shortCode": "abc123",
-    "shortUrl": "http://localhost:5000/abc123",
+    "shortCode": "devFolio",
+    "shortUrl": "http://localhost:5000/devFolio",
     "clicks": 0,
     "createdAt": "2025-03-03T10:30:00.000Z",
     "status": "active"
   }
+}
+
+// Without customAlias (random code generated):
+{
+  "success": true,
+  "data": {
+    "shortCode": "abc123",
+    "shortUrl": "http://localhost:5000/abc123",
+    ...
+  }
+}`}
+      />
+
+      {/* GET /getMyLinks */}
+      <EndpointCard
+        method="GET"
+        path="/getMyLinks"
+        title="Get All Your Links"
+        description="Retrieve all short links created by the authenticated user. Returns an array of link objects."
+        curlExample={`curl -X GET ${BASE_URL}/getMyLinks \\
+  -H "Authorization: Bearer YOUR_API_KEY"`}
+        responseExample={`{
+  "success": true,
+  "data": [
+    {
+      "id": "664f1a2b3c4d5e6f7a8b9c0d",
+      "name": "My Portfolio",
+      "url": "https://example.com/my-very-long-url",
+      "shortCode": "devFolio",
+      "shortUrl": "http://localhost:5000/devFolio",
+      "clicks": 42,
+      "createdAt": "2025-03-03T10:30:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "775a2b3c4d5e6f7a8b9c0e1f",
+      "name": "Blog Post",
+      "url": "https://example.com/blog/my-latest-post",
+      "shortCode": "abc123",
+      "shortUrl": "http://localhost:5000/abc123",
+      "clicks": 7,
+      "createdAt": "2025-03-04T14:20:00.000Z",
+      "status": "active"
+    }
+  ]
 }`}
       />
 
@@ -317,7 +371,7 @@ X-API-Key: your_api_key_here`}
           { name: "shortCode", type: "string", required: true, description: "The unique short code of the link (URL parameter)" },
         ]}
         curlExample={`curl -X GET ${BASE_URL}/links/abc123 \\
-  -H "X-API-Key: your_api_key_here"`}
+  -H "Authorization: Bearer YOUR_API_KEY"`}
         responseExample={`{
   "success": true,
   "data": {
@@ -343,7 +397,7 @@ X-API-Key: your_api_key_here`}
           { name: "linkId", type: "string", required: true, description: "The unique ID of the link to delete (URL parameter)" },
         ]}
         curlExample={`curl -X DELETE ${BASE_URL}/links/664f1a2b3c4d5e6f7a8b9c0d \\
-  -H "X-API-Key: your_api_key_here"`}
+  -H "Authorization: Bearer YOUR_API_KEY"`}
         responseExample={`{
   "success": true,
   "message": "Link deleted successfully"

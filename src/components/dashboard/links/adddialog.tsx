@@ -77,7 +77,7 @@ export function AddLinkDialog({ handleSubmit }: any) {
             <DialogClose asChild>
               <Button
                 type="submit"
-                onClick={() => handleSubmit(formData.name, formData.url, formData.customAlias)}
+                onClick={() => handleSubmit(formData)}
               >
                 Save changes
               </Button>

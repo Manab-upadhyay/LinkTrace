@@ -21,8 +21,8 @@ export default function Dashboard() {
   });
 
   const addLinkMutation = useMutation({
-    mutationFn: (formdata: { name: string; url: string }) =>
-      apiService.addUrl(formdata.name, formdata.url),
+    mutationFn: (formdata: { name: string; url: string, customAlias: string }) =>
+      apiService.addUrl(formdata.name, formdata.url, formdata.customAlias),
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["dashboard"] });
@@ -53,7 +53,8 @@ export default function Dashboard() {
       setLinkToDelete(null);
     }
   }
-  function handleAddLink(formData: { name: string; url: string }) {
+  function handleAddLink(formData: { name: string; url: string, customAlias: string }) {
+    console.log("formdata>>",formData)
     addLinkMutation.mutate(formData);
   }
 

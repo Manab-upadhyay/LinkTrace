@@ -39,7 +39,7 @@ export default function ApiKeysPage() {
   });
   async function handleGenerateApiKey(name: string) {
     const result = await generateApiKeyMutation.mutateAsync(name);
-    console.log("Generated API Key Result:", result);
+   
     if (result.error) {
       alert("Error generating API key: " + result.error);
     } else {
