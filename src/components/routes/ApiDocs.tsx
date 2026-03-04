@@ -220,8 +220,8 @@ Authorization: Bearer YOUR_API_KEY`}
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-muted/50 rounded-lg p-4 text-center space-y-1">
-              <p className="text-2xl font-bold">100</p>
-              <p className="text-xs text-muted-foreground">Requests / minute</p>
+              <p className="text-2xl font-bold">300</p>
+              <p className="text-xs text-muted-foreground">Requests / hour</p>
             </div>
             <div className="bg-muted/50 rounded-lg p-4 text-center space-y-1">
               <p className="text-2xl font-bold">429</p>
