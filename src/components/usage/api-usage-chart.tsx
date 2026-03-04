@@ -5,7 +5,7 @@ import { Bar, BarChart, XAxis, CartesianGrid, Tooltip } from "recharts";
 import { BarChart3 } from "lucide-react";
 
 const chartConfig = {
-  totalRequests: {
+  total: {
     label: "Total Requests",
     color: "#2563eb",
   },
@@ -16,13 +16,8 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function ApiUsageChart({ data }: any) {
-  const normalizedData =
-    data?.map((item: any) => ({
-      hour: `${item.hour}:00`,
-      totalRequests: item.totalRequests,
-      errorCount: item.errorCount,
-    })) ?? [];
-
+  
+console.log("data>>", data);
       const isEmpty = !data || data.length === 0 || data.every((d: any) => d.total === 0);
 
   if (isEmpty) {
@@ -38,14 +33,14 @@ export function ApiUsageChart({ data }: any) {
   }
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-      <BarChart data={normalizedData}>
+      <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="hour" />
         <Tooltip />
 
         <Bar
-          dataKey="totalRequests"
-          fill="var(--color-totalRequests)"
+          dataKey="total"
+          fill="var(--color-total)"
           radius={4}
         />
 

@@ -9,6 +9,7 @@ export default function UsagePage() {
     queryKey: ["usageData"],
     queryFn: () => apiClient.get("/usage/current").then((res) => res.data),
   });
+  console.log("data", data);
   if (isLoading) {
     return <UsageSkeleton></UsageSkeleton>
   }
