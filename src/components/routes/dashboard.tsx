@@ -10,14 +10,15 @@ import { useState } from "react";
 import DashboardSkeleton from "../skeleton/DashboardSkeleton";
 import useAuthStore from "@/store/store";
 
-export default function Dashboard() {
+export default function UserDashboard() {
   const {user} = useAuthStore()
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
   const [linkToDelete, setLinkToDelete] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const queryClient = useQueryClient();
   const { data, isLoading } = useQuery({
-    queryKey: ["dashboard"],
-    queryFn: () => apiService.getDashboard().then((res) => res.data),
+    queryKey: ["dashboard", currentPage],
+    queryFn: () => apiService.getDashboard(currentPage, 10).then((res) => res.data),
   });
 
   const addLinkMutation = useMutation({
@@ -25,7 +26,7 @@ export default function Dashboard() {
       apiService.addUrl(formdata.name, formdata.url, formdata.customAlias),
 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", currentPage] });
     },
 
     onError: () => {
@@ -35,7 +36,7 @@ export default function Dashboard() {
   const deleteLinkMutation = useMutation({
     mutationFn: (id: string) => apiService.deleteLink(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["dashboard", currentPage] });
     },
     onError: () => {
       alert("Error deleting link");
@@ -56,6 +57,11 @@ export default function Dashboard() {
   function handleAddLink(formData: { name: string; url: string, customAlias: string }) {
     console.log("formdata>>",formData)
     addLinkMutation.mutate(formData);
+  }
+
+  function handlePageChange(page: number) {
+    console.log("Page changed to:", page);
+    setCurrentPage(page);
   }
 
   console.log("Dashboard Data:", data);
@@ -93,6 +99,9 @@ export default function Dashboard() {
         <LinkTable
           data={data?.userLinks}
           handleDeleteLink={showDeleteDialogBox}
+          totalCount={data?.totalLinks ?? data?.userLinks?.length ?? 0}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
         />
         <ConfirmDialog
           open={showDeleteAlert}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { apiService } from "@/service/apiService";
 import { useNavigate } from "react-router-dom";
 
-export default function SetNewPassword (){
+export default function SetNewPasswordPage (){
     const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [newPassword, setNewPassword] = useState("");

@@ -15,7 +15,7 @@ import { useState } from "react";
 import useAuthStore from "@/store/store";
 import { Navigate, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-export function Login() {
+export function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",

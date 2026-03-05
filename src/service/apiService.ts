@@ -24,14 +24,14 @@ export const apiService = {
     safeRequest(apiClient.get(`/analytics/link/${linkId}/hourly`)),
 
   getUserAnalytics: () => safeRequest(apiClient.get("/analytics/user")), //get user specific analytics like total links, total clicks
-  getDashboard: () => safeRequest(apiClient.get("/dashboard")), //get all dashboard analytics in one call
+  getDashboard: (currentPage:number, limit:number) => safeRequest(apiClient.get("/dashboard", { params: { page: currentPage, limit } })), //get all dashboard analytics in one call
   getDashboardPerLinkAnalytics: (linkId: string) =>
     safeRequest(apiClient.get(`/analytics/dashboard/${linkId}`)), //get all analytics for specific link in one call for per link analysis page
   getLastWeekClicks: () =>
     safeRequest(apiClient.get("/analytics/weekly-trend")), //get clicks for last 7 days for dashboard chart
   getLastWeekClicksPerLink: (linkId: string) =>
     safeRequest(apiClient.get(`/analytics/weekly-trend/${linkId}`)), //get clicks for last 7 days for specific link for per link analysis
-  getUserLinks: () => safeRequest(apiClient.get("/links/getUserLinks")), //get all links for user for dashboard table
+  getUserLinks: (page:number, limit:number) => safeRequest(apiClient.get("/links/getUserLinks", {params: {page, limit}})), //get all links for user for dashboard table
   getDashboardPerHourClicks: () =>
     safeRequest(apiClient.get("/analytics/hourly-clicks")), //get clicks per hour for last 24 hours for dashboard chart & also to calculate total clicks today
 

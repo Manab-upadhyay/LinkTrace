@@ -5,7 +5,7 @@ import { apiService } from "@/service/apiService";
 import { ChartPerLink } from "../dashboard/links/analytics-per-link/perLinkChart";
 import { useQuery } from "@tanstack/react-query";
 
-export default function PerLinkAnalysis() {
+export default function PerLinkAnalysisPage() {
   const { linkId } = useParams<{ linkId: string }>();
   const { data, isLoading } = useQuery({
     queryKey: ["perLinkAnalytics", linkId],

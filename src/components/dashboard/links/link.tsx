@@ -1,5 +1,6 @@
 import { columns } from "./column";
 import { DataTable } from "./dataTable";
+
 interface Link {
   id: string;
   name: string;
@@ -12,10 +13,17 @@ interface Link {
 interface LinkTableProps {
   data: Link[];
   handleDeleteLink: (id: string) => void;
+  totalCount: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
-export default function LinkTable({ data, handleDeleteLink }: LinkTableProps) {
-  console.log("Link Table Data:", data);
-
+export default function LinkTable({
+  data,
+  handleDeleteLink,
+  totalCount,
+  currentPage,
+  onPageChange,
+}: LinkTableProps) {
   if (!data || data.length === 0) {
     return (
       <div className="flex min-h-[400px] flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-50">
@@ -29,13 +37,15 @@ export default function LinkTable({ data, handleDeleteLink }: LinkTableProps) {
     );
   }
 
-
   return (
     <div className="container mx-auto py-6">
       <DataTable
         columns={columns}
         data={data}
         handleDeleteLink={handleDeleteLink}
+        totalCount={totalCount}
+        currentPage={currentPage}
+        onPageChange={onPageChange}
       />
     </div>
   );

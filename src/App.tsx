@@ -1,27 +1,34 @@
-import Dashboard from "./components/routes/dashboard";
-import { Login } from "./components/routes/login";
-import { SignUp } from "./components/routes/signin";
+import UserDashboard from "./components/routes/Dashboard";
+import { LoginPage } from "./components/routes/Login";
+import { SidebarProvider } from "./components/ui/sidebar";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import ApiKeysPage from "./components/routes/api-key";
-import UsagePage from "./components/routes/usages";
+import ApiKeysPage from "./components/routes/Api-key";
+import UsagePage from "./components/routes/Usages";
 import { AppSidebar } from "./components/layout/SideBar";
-import { SidebarProvider } from "./components/ui/sidebar";
 import UserProfile from "./components/user/userProfile";
-import PerLinkAnalysis from "./components/routes/perLinkAnalysis";
+import PerLinkAnalysis from "./components/routes/PerLinkAnalysis";
 import SetNewPassword from "./components/routes/SetNewPassword";
 import ApiDocs from "./components/routes/ApiDocs";
 import { InputOTPForm } from "./components/routes/Otp";
+import LandingPage from "./components/routes/LandingPage";
 import { Outlet } from "react-router-dom";
+import { SignUp } from "./components/routes/Signin";
 
 function ProtectedRoute() {
   const isAuthenticated = !!localStorage.getItem("auth-storage");
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/landing" replace />;
+}
+
+function PublicOnlyRoute() {
+  const isAuthenticated = !!localStorage.getItem("auth-storage");
+
+  return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 }
 function PageLayout() {
   return (
@@ -45,7 +52,7 @@ function App() {
         {/* Protected Area */}
         <Route element={<ProtectedRoute />}>
           <Route element={<PageLayout />}>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<UserDashboard />} />
             <Route path="/usage" element={<UsagePage />} />
             <Route path="/api-keys" element={<ApiKeysPage />} />
             <Route
@@ -57,11 +64,17 @@ function App() {
           </Route>
         </Route>
 
-        {/* Public Routes */}
-          <Route path="/input-otp" element={<InputOTPForm />} />
-        <Route path="/login" element={<Login />} />
+        {/* Public-only Routes (redirect to dashboard if authenticated) */}
+        <Route element={<PublicOnlyRoute />}>
+
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Route>
+
+        {/* Other public routes (accessible to everyone) */}
+         <Route path="/landing" element={<LandingPage />} />
+        <Route path="/input-otp" element={<InputOTPForm />} />
         <Route path="/set-new-password" element={<SetNewPassword />} />
-        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Router>
   );
