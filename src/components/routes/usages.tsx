@@ -1,6 +1,6 @@
-import { ApiUsageChart } from "../usage/api-usage-chart";
-import { LinksUsageCard } from "../usage/link-usage-card";
-import { ApiUsageCard } from "../usage/api-usage-card";
+import { ApiUsageChart } from "../usage/ApiUsageChart";
+import { LinksUsageCard } from "../usage/LinkUsageCard";
+import { ApiUsageCard } from "../usage/ApiUsageCard";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "@/service/axiosClient";
 import UsageSkeleton from "../skeleton/UsageSkeleton";

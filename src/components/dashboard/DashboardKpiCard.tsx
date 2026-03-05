@@ -1,4 +1,4 @@
-import { KpiCard } from "./dashboardCards";
+import { KpiCard } from "./DashboardCards";
 import { Link, MousePointerClick, BarChart3, Activity } from "lucide-react";
 
 export default function StatsCard({

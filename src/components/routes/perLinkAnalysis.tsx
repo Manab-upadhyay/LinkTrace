@@ -1,8 +1,8 @@
-import PerLinkStatsCard from "../dashboard/links/analytics-per-link/perLinkStats_kpi-card";
+import PerLinkStatsCard from "../dashboard/links/analytics-per-link/PerLinkKpiCard";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { apiService } from "@/service/apiService";
-import { ChartPerLink } from "../dashboard/links/analytics-per-link/perLinkChart";
+import { ChartPerLink } from "../dashboard/links/analytics-per-link/PerLinkChart";
 import { useQuery } from "@tanstack/react-query";
 
 export default function PerLinkAnalysisPage() {

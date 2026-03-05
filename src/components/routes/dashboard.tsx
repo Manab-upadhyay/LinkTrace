@@ -1,11 +1,11 @@
-import StatsCard from "../dashboard/dashBoardKpi-Card";
-import { DashboardChart } from "../dashboard/LinkStatchart";
-import LinkTable from "../dashboard/links/link";
-import { AddLinkDialog } from "../dashboard/links/adddialog";
+import StatsCard from "../dashboard/DashboardKpiCard";
+import { DashboardChart } from "../dashboard/LinkStatsChart";
+import LinkTable from "../dashboard/links/LinkTable";
+import { AddLinkDialog } from "../dashboard/links/AddLinkDialog";
 
 import { apiService } from "@/service/apiService";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ConfirmDialog } from "../layout/DialogBox";
+import { ConfirmDialog } from "../common/ConfirmDialog";
 import { useState } from "react";
 import DashboardSkeleton from "../skeleton/DashboardSkeleton";
 import useAuthStore from "@/store/store";

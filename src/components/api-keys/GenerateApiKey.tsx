@@ -17,7 +17,7 @@ export function GenerateKeyDialog({
 }: {
   generateApiKey: (
     name: string,
-  ) => Promise<{ keyHash: string; prefix: string }>;
+  ) => Promise<{ fullKey: string } | undefined>;
 }) {
   const [keyName, setKeyName] = useState("");
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export function GenerateKeyDialog({
 
     try {
       const key = await generateApiKey(keyName);
-      setGeneratedKey(key.fullKey);
+      if (key) setGeneratedKey(key.fullKey);
     } catch (err) {
       console.error(err);
     }

@@ -1,5 +1,5 @@
 import { columns } from "./column";
-import { DataTable } from "./dataTable";
+import { DataTable } from "./DataTable";
 
 interface Link {
   id: string;

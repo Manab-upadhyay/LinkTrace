@@ -1,9 +1,9 @@
-import { GenerateKeyDialog } from "../api-keys/generateApi-key";
-import { ApiKeysTable } from "../api-keys/apikeys-table";
+import { GenerateKeyDialog } from "../api-keys/GenerateApiKey";
+import { ApiKeysTable } from "../api-keys/ApiKeysTable";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useQueryClient } from "@tanstack/react-query";
 import { apiService } from "@/service/apiService";
-import { ConfirmDialog } from "../layout/DialogBox";
+import { ConfirmDialog } from "../common/ConfirmDialog";
 import { useState } from "react";
 import TableSkeleton from "../skeleton/TableSkeleton";
 

@@ -1,4 +1,4 @@
-import { KpiCard } from "./per-link-stats";
+import { KpiCard } from "./PerLinkStats";
 import { MousePointerClick, Globe, Smartphone, Activity } from "lucide-react";
 import { type PerLinkResponse } from "@/types/analytics";
 
@@ -6,10 +6,8 @@ interface PerLinkStatsCardProps {
   data?: PerLinkResponse;
 
   lastWeekClicks?: {
-    data?: {
-      percentage: number;
-      isPositive: boolean;
-    };
+    percentage: number;
+    isPositive: boolean;
   };
 }
 export default function PerLinkStatsCard({
