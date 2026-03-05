@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { apiService } from "@/service/apiService";
 import { ChartPerLink } from "../dashboard/links/analytics-per-link/PerLinkChart";
 import { useQuery } from "@tanstack/react-query";
-
+import DashboardSkeleton from "../skeleton/DashboardSkeleton";
 export default function PerLinkAnalysisPage() {
   const { linkId } = useParams<{ linkId: string }>();
   const { data, isLoading } = useQuery({
@@ -15,7 +15,7 @@ export default function PerLinkAnalysisPage() {
   });
   console.log("perlink:", data);
   if (isLoading) {
-    return <div className="p-6">Loading...</div>;
+    return <DashboardSkeleton />;
   }
   return (
     <div className="p-6 space-y-8">

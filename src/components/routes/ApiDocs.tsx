@@ -450,7 +450,7 @@ Authorization: Bearer YOUR_API_KEY`}
       <div className="text-center py-8 text-muted-foreground text-sm">
         <p>
           Need help? Reach out on{" "}
-          <a href="#" className="text-primary underline underline-offset-4 hover:text-primary/80">
+          <a href="https://github.com/Manab-upadhyay" className="text-primary underline underline-offset-4 hover:text-primary/80">
             GitHub
           </a>{" "}
           or contact support.
