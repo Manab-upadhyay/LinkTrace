@@ -11,9 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiService } from "@/service/apiService";
-import useAuthStore from "@/store/store";
+
 import { useState } from "react";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export function SignUp() {

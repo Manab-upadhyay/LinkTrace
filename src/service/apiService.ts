@@ -1,5 +1,5 @@
 import apiClient from "./axiosClient";
-async function safeRequest<T>(request: Promise<any>) {
+async function safeRequest(request: Promise<any>) {
   try {
     const response = await request;
     return { data: response.data, error: null };

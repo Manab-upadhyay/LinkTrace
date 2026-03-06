@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { apiService } from "@/service/apiService";
 import { useState } from "react";
 import useAuthStore from "@/store/store";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export function LoginPage() {
   const [formData, setFormData] = useState({
@@ -112,9 +112,9 @@ setLoading(true)
             type="submit"
             className="w-full"
             onClick={() => handdleLogin(formData.email, formData.password)}
-            disabled={!formData.email || !formData.password}
+            disabled={!formData.email || !formData.password||loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </Button>
           <Button variant="outline" className="w-full">
             Login with Google

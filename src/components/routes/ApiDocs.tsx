@@ -7,7 +7,7 @@ import {
 } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
-import { Copy, Check, ExternalLink } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
@@ -39,7 +39,7 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-function CodeBlock({ code, language = "bash" }: CodeBlockProps) {
+function CodeBlock({ code }: CodeBlockProps) {
   return (
     <div className="relative group">
       <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
