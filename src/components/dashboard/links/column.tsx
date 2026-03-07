@@ -11,8 +11,8 @@ export const columns: ColumnDef<any>[] = [
     header: "Short URL",
     cell: ({ row }) => {
       const BASE_URL = import.meta.env.VITE_APP_URL || window.location.origin;
-
-      const shortUrl = `${import.meta.env.VITE_APP_URL}/${row.original.shortCode}`;
+      const REDIRECT_URL = import.meta.env.VITE_REDIRECT_URL;
+      const shortUrl = `${REDIRECT_URL}/${row.original.shortCode}`;
       const fullUrl = `${BASE_URL}/${row.original.shortCode}`;
 
       return (
