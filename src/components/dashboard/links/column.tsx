@@ -12,7 +12,7 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       const BASE_URL = import.meta.env.VITE_APP_URL || window.location.origin;
 
-      const shortUrl = `http://localhost:5000/${row.original.shortCode}`;
+      const shortUrl = `${import.meta.env.VITE_APP_URL}/${row.original.shortCode}`;
       const fullUrl = `${BASE_URL}/${row.original.shortCode}`;
 
       return (
