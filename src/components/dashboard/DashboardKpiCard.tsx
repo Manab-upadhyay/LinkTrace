@@ -12,10 +12,10 @@ export default function StatsCard({
   console.log("API Request:", apiRequest);
   console.log("Last Week Clicks:", lastWeekClicks);
 
-  const clicksToday = perHourClicks.reduce(
-    (total: number, hourData: any) => total + hourData.total,
-    0,
-  );
+  // const clicksToday = perHourClicks.reduce(
+  //   (total: number, hourData: any) => total + hourData.total,
+  //   0,
+  // );
   const totalApiRequests = apiRequest.reduce(
     (total: number, data: any) => total + data.totalRequests,
     0,
@@ -36,7 +36,8 @@ export default function StatsCard({
         trendColor={lastWeekClicks.isPositive ? "green" : "red"}
       />
 
-      <KpiCard title="Clicks Today" value={clicksToday} icon={Activity} />
+      <KpiCard title="Clicks Today" value={userAnalytics.todaysClicks
+} icon={Activity} />
 
       <KpiCard title="API Requests" value={totalApiRequests} icon={BarChart3} />
     </div>
