@@ -2,6 +2,7 @@ import StatsCard from "../dashboard/DashboardKpiCard";
 import { DashboardChart } from "../dashboard/LinkStatsChart";
 import LinkTable from "../dashboard/links/LinkTable";
 import { AddLinkDialog } from "../dashboard/links/AddLinkDialog";
+import TopLinksTable from "../dashboard/links/TopLinksTable";
 
 import { apiService } from "@/service/apiService";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -89,6 +90,8 @@ export default function UserDashboard() {
         <h2 className="text-lg font-semibold mb-4">Clicks (Last 24 Hours)</h2>
         <DashboardChart data={data?.perHourClicks} />
       </div>
+
+      <TopLinksTable topLinks={data?.topLinks} />
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
