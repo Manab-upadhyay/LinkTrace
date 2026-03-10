@@ -11,6 +11,7 @@ import UserProfile from "./components/user/userProfile";
 import PerLinkAnalysis from "./components/routes/PerLinkAnalysis";
 import SetNewPassword from "./components/routes/SetNewPassword";
 import ApiDocs from "./components/routes/ApiDocs";
+import FeedBack from "./components/routes/FeedBack";
 import { InputOTPForm } from "./components/routes/Otp";
 import LandingPage from "./components/routes/LandingPage";
 import { SignUp } from "./components/routes/Signin";
@@ -34,6 +35,7 @@ function App() {
             />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/api-docs" element={<ApiDocs />} />
+            <Route path="/feedback" element={<FeedBack />} />
           </Route>
         </Route>
 

@@ -27,7 +27,8 @@ import {
   LogOut,
   User,
   ChevronsUpDown,
-  BookOpen
+  BookOpen,
+  MessageSquare
 } from "lucide-react";
 
 import { NavLink, useNavigate } from "react-router-dom";
@@ -114,6 +115,16 @@ export function AppSidebar() {
                   <BookOpen className="w-4 h-4" />
                   <span className="group-data-[collapsible=icon]:hidden">
                     API Docs
+                  </span>
+                </NavLink>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild>
+                <NavLink to="/feedback">
+                  <MessageSquare className="w-4 h-4" />
+                  <span className="group-data-[collapsible=icon]:hidden">
+                    Feedback
                   </span>
                 </NavLink>
               </SidebarMenuButton>

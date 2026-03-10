@@ -59,4 +59,9 @@ export const apiService = {
 
   verifyOtp: (email: string, otp: string) =>
     safeRequest(apiClient.post("/auth/verify-signup", { email, otp })),
+  sendFeedBackResponse: (email:string, feedback:string) =>
+    safeRequest(apiClient.post("/email/send-feedback-response", { email, feedback })),
+sendFeedBack: (feedback:string) =>
+    safeRequest(apiClient.post("/email/send-email-to-authority", { feedback })),
 };
+
