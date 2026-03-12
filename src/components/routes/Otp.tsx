@@ -15,7 +15,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp"
 import { RefreshCwIcon } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { apiService } from "@/service/apiService"
 import useAuthStore from "@/store/store"
 import { useLocation, useNavigate } from "react-router-dom"
@@ -23,13 +23,58 @@ import { useLocation, useNavigate } from "react-router-dom"
 export function InputOTPForm() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { email } = location.state || {}
+  const { email, type } = location.state || {}
 
   const [otp, setOtp] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [message, setMessage] = useState("")
+  const [timer, setTimer] = useState(300)
+  const [isResendEnabled, setIsResendEnabled] = useState(false)
+
+  useEffect(() => {
+    if (timer <= 0) {
+      setIsResendEnabled(true)
+      return
+    }
+
+    const intervalId = setInterval(() => {
+      setTimer((prev) => prev - 1)
+    }, 1000)
+
+    return () => clearInterval(intervalId)
+  }, [timer])
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${minutes}:${secs.toString().padStart(2, "0")}`
+  }
+
+  async function handleResend() {
+    setIsResendEnabled(false)
+    setTimer(300)
+    setError("")
+    setMessage("")
+
+    let result
+    if (type === "reset-password") {
+      result = await apiService.resendForgetPasswordOtp(email)
+    } else {
+      result = await apiService.resendSignupOtp(email)
+    }
+
+    if (result.error) {
+      setError(result.error)
+      setIsResendEnabled(true)
+      setTimer(0)
+    } else {
+      setSuccess(true)
+      setMessage("Verification code resent successfully")
+      setTimeout(() => setSuccess(false), 3000)
+    }
+  }
 
   async function handleVerifyOtp() {
     if (otp.length < 6) {
@@ -40,20 +85,36 @@ export function InputOTPForm() {
     setLoading(true)
     setError("")
 
-    const result = await apiService.verifyOtp(email, otp)
+    let result;
+    if (type === "reset-password") {
+        result = await apiService.verfifyForgetPasswordOtp(email, otp)
+    } else {
+        result = await apiService.verifyOtp(email, otp)
+    }
 
     if (result.error) {
       setError(result.error)
     } else if (result.data) {
-        console.log("result", result.data)
+      console.log("result", result.data)
       setSuccess(true)
-      setMessage(result.data.message)
-      useAuthStore.getState().setAuth(result.data.user)
-      setTimeout(() => navigate("/", { replace: true }), 1500)
+      setMessage(type=="reset-password"?"password reset succesfully":"otp verified ")
+
+      
+      if (type === "signup" || !type) {
+          useAuthStore.getState().setAuth(result.data.user)
+          setTimeout(() => navigate("/", { replace: true }), 1500)
+      } else if (type === "reset-password") {
+          setTimeout(() => navigate("/login", { replace: true }), 1500)
+      }
     }
 
     setLoading(false)
   }
+
+  const title = type === "reset-password" ? "Verify Password Reset" : "Verify your Sign In"
+  const description = type === "reset-password" 
+    ? "Enter the verification code we sent to your email to complete your password reset."
+    : "Enter the verification code we sent to your email address: "
 
   return (
     <div className="flex items-center justify-center h-screen">
@@ -69,9 +130,9 @@ export function InputOTPForm() {
               {message}
             </div>
           )}
-          <CardTitle>Verify your Sign In</CardTitle>
+          <CardTitle>{title}</CardTitle>
           <CardDescription>
-            Enter the verification code we sent to your email address:{" "}
+            {description}
             <span className="font-medium">{email || "your email"}</span>.
           </CardDescription>
         </CardHeader>
@@ -81,9 +142,14 @@ export function InputOTPForm() {
               <FieldLabel htmlFor="otp-verification">
                 Verification code
               </FieldLabel>
-              <Button variant="outline" size="sm">
-                <RefreshCwIcon className="mr-1 h-3 w-3" />
-                Resend Code
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleResend} 
+                disabled={!isResendEnabled}
+              >
+                <RefreshCwIcon className={`mr-1 h-3 w-3 ${!isResendEnabled ? 'animate-spin' : ''}`} />
+                {isResendEnabled ? "Resend Code" : `Resend in ${formatTime(timer)}`}
               </Button>
             </div>
             <InputOTP
@@ -117,7 +183,7 @@ export function InputOTPForm() {
               {loading ? "Verifying..." : "Verify"}
             </Button>
             <div className="text-sm text-muted-foreground">
-              Having trouble signing in?{" "}
+              {type === "reset-password" ? "Didn't receive the code?" : "Having trouble signing in?"}{" "}
               <a
                 href="#"
                 className="underline underline-offset-4 transition-colors hover:text-primary"

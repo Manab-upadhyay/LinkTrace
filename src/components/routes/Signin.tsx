@@ -48,7 +48,7 @@ export function SignUp() {
     } else if (result.data) {
       setLoading(false)
   
-      navigate("/input-otp", { state: { email: formData.email } });
+      navigate("/input-otp", { state: { email: formData.email, type: "signup" } });
     }
   }
   return (

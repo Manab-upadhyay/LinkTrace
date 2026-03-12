@@ -62,6 +62,14 @@ export const apiService = {
   sendFeedBackResponse: (email:string, feedback:string) =>
     safeRequest(apiClient.post("/email/send-feedback-response", { email, feedback })),
 sendFeedBack: (feedback:string) =>
-    safeRequest(apiClient.post("/email/send-email-to-authority", { feedback })),
-};
+  safeRequest(apiClient.post("/email/send-email-to-authority", { feedback })),
+  verfifyForgetPasswordOtp: (email: string, otp: string) =>
+    safeRequest(apiClient.post("/auth/verify-update-password", { email, otp })),
 
+  resendSignupOtp: (email: string) =>
+    safeRequest(apiClient.post("/auth/resend-signup-otp", { email })),
+
+  resendForgetPasswordOtp: (email: string) =>
+    safeRequest(apiClient.post("/auth/resend-forget-password-otp", { email })),
+
+};

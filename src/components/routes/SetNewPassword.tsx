@@ -26,9 +26,10 @@ export default function SetNewPasswordPage (){
         if (error) {
             setError(error);
         } else {
-            setSuccess("Password updated successfully");
-            alert("Password updated successfully");
-            navigate("/login")
+            setSuccess("OTP sent successfully. Please check your email.");
+           
+                navigate("/input-otp", { state: { email, type: "reset-password" } });
+        
         }
     }
     return (
