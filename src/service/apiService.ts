@@ -7,7 +7,6 @@ async function safeRequest(request: Promise<any>) {
     return { data: null, error: error.message };
   }
 }
-
 export const apiService = {
   login: (email: string, password: string) =>
     safeRequest(apiClient.post("/auth/login", { email, password })),
@@ -19,7 +18,7 @@ export const apiService = {
 
   getLinkAnalytics: (linkId: string) =>
     safeRequest(apiClient.get(`/analytics/link/${linkId}`)),
-  //get analytics for a specific link
+
   getLinkAnalyticsHourly: (linkId: string) =>
     safeRequest(apiClient.get(`/analytics/link/${linkId}/hourly`)),
 
@@ -46,10 +45,8 @@ export const apiService = {
   updateUserPassword : ( newPassword: string, email: string) =>
     safeRequest(apiClient.put("/auth/updatePassword", { newPassword, email })),
   uploadUserProfileImage:(image:File)=>{
-    console.log(image)
     const formData = new FormData();
     formData.append("image", image);
-    console.log(formData)
     return safeRequest(apiClient.post("/media/upload-image", formData,{
       headers: {
     "Content-Type": "multipart/form-data",

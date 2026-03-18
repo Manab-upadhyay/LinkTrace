@@ -1,13 +1,27 @@
 import axios from "axios";
+import { getCsrfToken } from "../utils/cookie";
 
 
 const apiClient = axios.create({
-  baseURL:  import.meta.env.VITE_API_BASE_URL||"http://localhost:5000/api",
+  baseURL: import.meta.env.MODE === "development" ? "http://localhost:5000/api" : import.meta.env.VITE_API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = getCsrfToken();
+    if (token) {
+      config.headers["x-csrf-token"] = token;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 
 
