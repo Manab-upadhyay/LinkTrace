@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCsrfToken } from "../utils/cookie";
+
 
 
 const apiClient = axios.create({
