@@ -41,6 +41,7 @@ setLoading(true)
     } else if (result.data) {
       console.log("Login successful, user data:", result.data.user);
       useAuthStore.getState().setAuth(result.data.user);
+      localStorage.setItem("csrf-token", result.data.csrftoken);
       
       navigate("/", { replace: true });
     }

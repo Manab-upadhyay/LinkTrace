@@ -12,7 +12,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = getCsrfToken();
+    const token = localStorage.getItem("csrf-token");
     if (token) {
       config.headers["x-csrf-token"] = token;
     }

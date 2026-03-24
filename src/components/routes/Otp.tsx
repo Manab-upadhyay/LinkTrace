@@ -99,7 +99,7 @@ export function InputOTPForm() {
       setSuccess(true)
       setMessage(type=="reset-password"?"password reset succesfully":"otp verified ")
 
-      
+      localStorage.setItem("csrf-token", result.data.csrftoken);
       if (type === "signup" || !type) {
           useAuthStore.getState().setAuth(result.data.user)
           setTimeout(() => navigate("/", { replace: true }), 1500)
