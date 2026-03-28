@@ -25,7 +25,7 @@ export default function PerLinkAnalysisPage() {
         data={data.summary}
         lastWeekClicks={data?.weeklyTrend}
       />
-<LiveStatus linkId={linkId} />
+      <LiveStatus linkId={linkId!} />
       {/* Charts Section */}
       <ChartPerLink data={data?.hourly} />
     </div>
