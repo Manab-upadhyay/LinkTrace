@@ -10,8 +10,7 @@ import {
   Globe,
   Shield,
   Terminal,
-  ChevronRight,
-  Activity,
+
   Layers,
   Code2
 } from "lucide-react";
@@ -222,7 +221,7 @@ function FeaturesSection() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((f, i) => (
+          {features.map((f) => (
             <div
               key={f.title}
               className={`group relative ${THEME.glassCard} p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 ${f.glow}`}
@@ -299,7 +298,7 @@ function HowItWorksSection() {
           {/* Connection Line */}
           <div className="hidden md:block absolute top-[44px] left-[15%] w-[70%] h-px bg-gradient-to-r from-[#1dfba5]/20 via-[#3B82F6]/20 to-[#8B5CF6]/20" />
 
-          {steps.map((s, i) => (
+          {steps.map((s) => (
             <div key={s.num} className="relative flex flex-col items-center text-center group">
               {/* Icon Container */}
               <div className="relative mb-8 mt-2">
