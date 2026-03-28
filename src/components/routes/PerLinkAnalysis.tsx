@@ -5,6 +5,7 @@ import { apiService } from "@/service/apiService";
 import { ChartPerLink } from "../dashboard/links/analytics-per-link/PerLinkChart";
 import { useQuery } from "@tanstack/react-query";
 import DashboardSkeleton from "../skeleton/DashboardSkeleton";
+import { LiveStatus } from "../dashboard/links/analytics-per-link/LiveStatus";
 export default function PerLinkAnalysisPage() {
   const { linkId } = useParams<{ linkId: string }>();
   const { data, isLoading } = useQuery({
@@ -24,6 +25,7 @@ export default function PerLinkAnalysisPage() {
         data={data.summary}
         lastWeekClicks={data?.weeklyTrend}
       />
+<LiveStatus linkId={linkId} />
       {/* Charts Section */}
       <ChartPerLink data={data?.hourly} />
     </div>

@@ -28,6 +28,8 @@ export const apiService = {
     safeRequest(apiClient.get(`/analytics/dashboard/${linkId}`)), //get all analytics for specific link in one call for per link analysis page
   getLastWeekClicksPerLink: (linkId: string) =>
     safeRequest(apiClient.get(`/analytics/weekly-trend/${linkId}`)), //get clicks for last 7 days for specific link for per link analysis
+  getRecentClicks: (linkId: string) =>
+    safeRequest(apiClient.get(`/live/${linkId}/recent`)), //get recent clicks
   getUserLinks: (page:number, limit:number) => safeRequest(apiClient.get("/links/getUserLinks", {params: {page, limit}})), //get all links for user for dashboard table
 
   addUrl: (name: string, url: string, customAlias: string) =>
@@ -68,5 +70,6 @@ sendFeedBack: (feedback:string) =>
 
   resendForgetPasswordOtp: (email: string) =>
     safeRequest(apiClient.post("/auth/resend-forget-password-otp", { email })),
+  socketConnection: () => safeRequest(apiClient.get("/socket/connection")),
 
 };
