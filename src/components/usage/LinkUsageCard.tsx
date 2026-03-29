@@ -5,7 +5,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Link2 } from "lucide-react";
 
 interface LinksUsageCardProps {
@@ -18,46 +17,40 @@ export function LinksUsageCard({ used, limit }: LinksUsageCardProps) {
   const remaining = Math.max(limit - used, 0);
 
   return (
-    <Card className="border-muted/40 bg-muted/20 backdrop-blur-sm">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <div>
-          <CardTitle className="text-lg font-semibold">Link Usage</CardTitle>
-          <CardDescription>Monthly link creation limit</CardDescription>
+    <Card className="border border-border/50 bg-card shadow-sm rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div className="space-y-1">
+          <CardTitle className="text-sm font-medium text-muted-foreground">Link Usage</CardTitle>
+          <CardDescription className="text-xs text-muted-foreground/60">Monthly link creation limit</CardDescription>
         </div>
-
-        <div className="p-2 rounded-lg bg-background border">
-          <Link2 className="w-5 h-5 text-muted-foreground" />
+        <div className="p-2 rounded-lg bg-primary/5 text-primary border border-primary/10">
+          <Link2 className="w-4 h-4" />
         </div>
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {/* Main Numbers */}
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-3xl font-bold">
-              {used}
-              <span className="text-base font-medium text-muted-foreground">
-                {" "}
-                / {limit}
-              </span>
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {remaining} remaining
-            </p>
+        <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline gap-1">
+            <span className="text-3xl font-bold tracking-tight text-foreground">{used}</span>
+            <span className="text-sm font-medium text-muted-foreground">/ {limit}</span>
           </div>
-
-          <div className="text-sm text-muted-foreground">
+          <span className="text-xs font-semibold text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
             {percentage.toFixed(0)}%
-          </div>
+          </span>
         </div>
 
-        {/* Progress */}
-        <Progress value={percentage} className="h-2" />
-
-        {/* Subtle Footer Note */}
-        <p className="text-xs text-muted-foreground">
-          Usage resets automatically at the start of each month.
-        </p>
+        <div className="space-y-2">
+          <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-primary transition-all duration-500 ease-in-out"
+              style={{ width: `${percentage}%` }}
+            />
+          </div>
+          <div className="flex justify-between items-center text-[11px] font-medium text-muted-foreground/80">
+            <span>{remaining} links remaining</span>
+            <span>Resets monthly</span>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
