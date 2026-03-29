@@ -11,7 +11,7 @@ import { Copy, Check } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = import.meta.env.VITE_DEV_API_BASE_URL;
 
 interface CodeBlockProps {
   code: string;

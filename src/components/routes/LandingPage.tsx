@@ -395,7 +395,7 @@ function DeveloperSection() {
 
               <div className="p-6 font-mono text-[14px] leading-relaxed text-[#a3aac4] overflow-x-auto whitespace-pre">
                 <div>
-                  <span className="text-white/40">$</span> <span className="text-[#1dfba5]">curl</span> <span className="text-[#a3aac4]">-X POST</span> <span className="text-[#3B82F6]">https://linktracebackend-production.up.railway.app/api/addLinks</span> <span className="text-white/40">\</span>
+                  <span className="text-white/40">$</span> <span className="text-[#1dfba5]">curl</span> <span className="text-[#a3aac4]">-X POST</span> <span className="text-[#3B82F6]">https://linktracebackend-production.up.railway.app/api/v1/links/addLinks</span> <span className="text-white/40">\</span>
                 </div>
                 <div className="pl-4">
                   <span className="text-[#a3aac4]">-H</span> <span className="text-amber-300">"Authorization: Bearer sk_live_f89A..."</span> <span className="text-white/40">\</span>
