@@ -29,11 +29,11 @@ export function KpiCard({
       
       <CardContent className="flex items-center gap-5 p-6 relative z-10">
         <div className="flex-1 space-y-2">
-          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/40">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground/40">
             {title}
           </p>
           <div className="flex flex-col">
-            <p className="text-3xl font-black tracking-tighter text-black group-hover:scale-[1.02] origin-left transition-transform duration-500">
+            <p className="text-3xl font-black tracking-tighter text-foreground group-hover:scale-[1.02] origin-left transition-transform duration-500">
               {value}
             </p>
             

@@ -254,12 +254,12 @@ Authorization: Bearer YOUR_API_KEY`}
           <div className="space-y-2">
             <a href="#post--addlinks" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors group">
               <MethodBadge method="POST" />
-              <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/addLinks</code>
+              <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/links</code>
               <span className="text-sm text-muted-foreground ml-auto hidden sm:inline">Create a short link</span>
             </a>
             <a href="#get--getmylinks" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors group">
               <MethodBadge method="GET" />
-              <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/getMyLinks</code>
+              <code className="text-sm font-mono text-muted-foreground group-hover:text-foreground transition-colors">/links</code>
               <span className="text-sm text-muted-foreground ml-auto hidden sm:inline">Get all your links</span>
             </a>
             <a href="#get--links-shortcode" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted transition-colors group">

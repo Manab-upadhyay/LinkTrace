@@ -10,6 +10,7 @@ import { ConfirmDialog } from "../common/ConfirmDialog";
 import { useState } from "react";
 import DashboardSkeleton from "../skeleton/DashboardSkeleton";
 import useAuthStore from "@/store/store";
+import { ModeToggle } from "../common/Mode-toggle";
 
 export default function UserDashboard() {
   const {user} = useAuthStore()
@@ -72,13 +73,17 @@ export default function UserDashboard() {
   return (
     <div className="p-6 space-y-8 flex flex-col">
       <div className="mb-2">
+        <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight text-foreground">
           Welcome back, {user?.name || "User"}! 👋
         </h1>
+        <ModeToggle />
+        </div>
         <p className="text-muted-foreground mt-1">
           Here's what's happening with your links today.
         </p>
       </div>
+    
       <StatsCard
         userAnalytics={data?.userAnalytics}
         perHourClicks={data?.perHourClicks}
