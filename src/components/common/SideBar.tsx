@@ -80,7 +80,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <NavLink to="/" end>
-                  <LayoutDashboard className="w-4 h-4" />
+                  <LayoutDashboard />
                   <span className="group-data-[collapsible=icon]:hidden">
                     Dashboard
                   </span>
@@ -91,7 +91,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <NavLink to="/usage">
-                  <BarChart3 className="w-4 h-4" />
+                  <BarChart3 />
                   <span className="group-data-[collapsible=icon]:hidden">
                     Usage
                   </span>
@@ -102,7 +102,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <NavLink to="/api-keys">
-                  <Key className="w-4 h-4" />
+                  <Key />
                   <span className="group-data-[collapsible=icon]:hidden">
                     API Keys
                   </span>
@@ -112,7 +112,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <NavLink to="/api-docs">
-                  <BookOpen className="w-4 h-4" />
+                  <BookOpen />
                   <span className="group-data-[collapsible=icon]:hidden">
                     API Docs
                   </span>
@@ -122,7 +122,7 @@ export function AppSidebar() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <NavLink to="/feedback">
-                  <MessageSquare className="w-4 h-4" />
+                  <MessageSquare />
                   <span className="group-data-[collapsible=icon]:hidden">
                     Feedback
                   </span>
