@@ -22,15 +22,20 @@ export function GenerateKeyDialog({
   const [keyName, setKeyName] = useState("");
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false)
 
   const handleGenerate = async () => {
     if (!keyName.trim()) return;
-
+setLoading(true)
     try {
       const key = await generateApiKey(keyName);
       if (key) setGeneratedKey(key.fullKey);
-    } catch (err) {
+    }
+     catch (err) {
       console.error(err);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -62,7 +67,7 @@ export function GenerateKeyDialog({
               onChange={(e) => setKeyName(e.target.value)}
             />
 
-            <Button className="w-full" onClick={handleGenerate}>
+            <Button className="w-full" onClick={handleGenerate} disabled= {loading}>
               Generate
             </Button>
           </div>
