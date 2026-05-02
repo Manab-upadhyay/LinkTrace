@@ -71,5 +71,7 @@ sendFeedBack: (feedback:string) =>
   resendForgetPasswordOtp: (email: string) =>
     safeRequest(apiClient.post("/auth/resend-forget-password-otp", { email })),
   socketConnection: () => safeRequest(apiClient.get("/socket/connection")),
-
+   chatBot:(question :string)=>{
+    return safeRequest(apiClient.post("/rag/chat", {question}))
+   }
 };
