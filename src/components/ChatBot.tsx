@@ -101,7 +101,7 @@ How can I assist you today?`;
 
     try {
       const response = await apiService.chatBot(input);
-      console.log("res>>", response);
+   
       
       const rawContent = response.data.data?.answer || response.data?.response || "I'm sorry, I couldn't find an answer to that in the documentation.";
       
